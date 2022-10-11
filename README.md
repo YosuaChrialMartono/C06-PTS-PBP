@@ -13,7 +13,7 @@
 https://pts-c06-pbp.herokuapp.com
 
 ### Cerita Aplikasi :
-
+Topik dari aplikasi kami adalah Stunting.
 
 
 ### Daftar Modul yang akan diimplementasikan :
