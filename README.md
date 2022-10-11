@@ -6,7 +6,7 @@
 
 1. Made Swastika Nata Negara
 2. Diah Afia Safitri
-3. Muhammad Navis Raditya Riayatsyah
+3. **Muhammad Navis Raditya Riayatsyah**
 4. Daffa Maulana Haekal
 5. Yosua Chrial Martono
 6. Yan Christofer S.
