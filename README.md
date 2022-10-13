@@ -1,12 +1,12 @@
 # Proyek Tengah Semester: Pacil Tau Stunting (PTS)
 
  ## Pemuja Jenggo 👨‍💻
-- Made Swastika Nata Negara
-- Diah Afia Safitri
-- Muhammad Navis Raditya Riayatsyah
-- Daffa Maulana Haekal
-- Yosua Chrial Martono
-- Yan Christofer S.
+- Daffa Maulana Haekal (2106652083)
+- Diah Afia Safitri (2106750420)
+- Made Swastika Nata Negara (2106630095)
+- Muhammad Navis Raditya Riayatsyah (2106717291)
+- Yan Christofer Silalahi (2106752464)
+- Yosua Chrial Martono (2106750686)
 <br><br>
 
 ## Tautan Aplikasi Heroku🔗
