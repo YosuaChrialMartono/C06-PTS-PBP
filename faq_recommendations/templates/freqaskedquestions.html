@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>PacilTauStunting - FAQ</title>
+{% endblock meta %}
+
+{% block content %}
+<!-- <header id="main-header">
+    <div class="nav-header">
+        <div class="nav-header-container">
+            <div class="brand-container">
+                <a class="brand-link pts-logo">
+                    PTS
+                </a>
+            </div>
+            <ul>
+
+            </ul>
+        </div>
+    </div>
+</header> -->
+
+<div class="body">
+    <div class="faq-wrapper">
+        <h1>Frequently Asked Questions</h1>
+
+        <div class="faq-wrapper-text">
+            <h2>General Questions</h2>
+        </div>
+
+        {% for question in FreqAskedQuestions %}
+        <div class="faq-card" style="width: 18rem;">
+            <div class="faq-card-body">
+                <h5 class="faq-card-title">{{question.title}}</h5>
+                <h5 class="faq-card-desc">{{question.description}}</h5>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="footer">
+
+</div>
+{% endblock content %}
