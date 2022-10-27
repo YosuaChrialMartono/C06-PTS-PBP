@@ -1,10 +1,18 @@
 [
     {
         "model" : "faq_recommendations.FreqAskedQuestions",
-        "pk" : "1",
+        "pk" : 1,
         "fields" : {
             "title" : "abcd",
-            "desciption" : "this is abcd"
+            "description" : "this is abcd"
+        }
+    },
+    {
+        "model" : "faq_recommendations.FreqAskedQuestions",
+        "pk" : 2,
+        "fields" : {
+            "title" : "hello",
+            "description" : "testing secondary"
         }
     }
 ]
