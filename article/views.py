@@ -95,19 +95,18 @@ def logout_user(request):
 @login_required(login_url='/article/login/')
 def post_article(request):
     form = ArticleForm(request.POST or None)
-    if (form.is_valid and request.method == 'POST'):
+    if (form.is_valid() and request.method == 'POST'):
         new_article = form.save(commit=False)
-        new_article.author = request.author
-        new_article.title = new_article.title.lower()
+        new_article.author = request.user
         new_article.save()
         return redirect('/article/')
     response = {'form': ArticleForm}
-    return render(request, 'form.html', response)
+    return render(request, 'form_article.html', response)
 
 
 def save_article(request):
     form = ArticleForm(request.POST or None)
-    if (form.is_valid and request.method == 'POST'):
+    if (form.is_valid() and request.method == 'POST'):
         form.save()
         return HttpResponseRedirect('/')
     else:
