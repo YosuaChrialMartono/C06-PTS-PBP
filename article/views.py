@@ -96,11 +96,12 @@ def logout_user(request):
 def post_article(request):
     form = ArticleForm(request.POST or None)
     if (form.is_valid() and request.method == 'POST'):
-        new_article = form.save(commit=False)
-        new_article.author = request.user
-        new_article.save()
+        article_form = form.save(commit=False)
+        article_form.author = request.user
+        article_form.save()
+        messages.success(request, 'Artikel telah berhasil dibuat!')
         return redirect('/article/')
-    response = {'form': ArticleForm}
+    response = {'form': form}
     return render(request, 'form_article.html', response)
 
 

@@ -27,11 +27,11 @@ async function refreshArticle() {
     let htmlString = ""
     article.forEach((item) => {
         let content = item.fields.content.slice(0, 300);
-        let link = item.fields.title.replace(" ", "-");
+        let link = item.pk.replace(" ", "-");
         htmlString += `\n
                   <div class="card mx-auto m-3" style="width: 18rem"> 
                       <div class="card-header">
-                          <b>${item.fields.title}</b>
+                          <b>${item.pk}</b>
                         </div>
                     <div class="card-body">
                         <p class="card-text">${content}</p> 
