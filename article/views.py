@@ -1,24 +1,41 @@
 import datetime
-from turtle import title
+
 from django.shortcuts import render
-from article.models import ArticleForm, ArticlePage
 from django.http import HttpResponse
 from django.core import serializers
+from django.core.paginator import Paginator, EmptyPage
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+
+from article.models import ArticleForm, ArticlePage
 
 def show_main_page(request):
     '''
     Show artikel tanpa login
     '''
     articles = ArticlePage.objects.all()
+    page_num = request.GET.get('page', 1)
+    page_num = int(page_num)
+    p = Paginator(articles, 12)
+    page_range = p.page_range
+
+    try:
+        page = p.page(page_num)
+    except EmptyPage:
+        page_num = 1
+
+
+    last_page = 0
+    for i in page_range:
+        last_page = i
     context = {
-        'article' : articles,
+        'page_num' : page_num,
+        'page_range' : last_page
     }
     return render(request, "main_page.html", context)
 
@@ -39,18 +56,17 @@ def show_article_by_page(request, id):
 
 def show_json(request):
     articles = ArticlePage.objects.all()
+
     return HttpResponse(serializers.serialize("json", articles), content_type="application/json")
 
 
-def show_json_by_title(request, title):
-    title = title.replace("-", " ")
+def show_json_by_page(request, page_num = 1):
     articles = ArticlePage.objects.all()
-    filtered_article = []
-    for article in articles:
-        if article.title == title:
-            filtered_article.append(article)
-    # Jika JSON
-    return HttpResponse(serializers.serialize("json", filtered_article), content_type="application/json")
+
+    p = Paginator(articles, 12)
+    page = p.page(page_num)
+
+    return HttpResponse(serializers.serialize("json", page), content_type="application/json")
 
 
 def register(request):
