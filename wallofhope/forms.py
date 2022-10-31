@@ -10,10 +10,10 @@ class DataForm(ModelForm):
         label = {
             'judul' : 'judul',
             'deskripsi' : 'deskripsi',
-            'image' : ''
+            'image' : 'Link image'
         }
         widgets = {
             'judul' : forms.TextInput(attrs={'type' : 'text', 'class' :'form-control', 'id':'input_title'}),
             'deskripsi' : forms.TextInput(attrs={'type' : 'text', 'class' : 'form-control', 'id':'input_desc'}),
-            'image' : forms.TextInput(attrs={'type': 'file', 'class' : "file-upload-image",  'accept' : 'image/png, image/jpg', 'id' : 'input_image'})
+            'image' : forms.TextInput(attrs={'type': 'text', 'class' : "form-control", 'id' : 'input_image'})
         }

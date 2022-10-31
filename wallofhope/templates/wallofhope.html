@@ -12,7 +12,10 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      background-color: #34495e;
+      background-color: #D9AFD9;
+      background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+      width: 100%;
+      min-height: 100vh;
       overflow-x: hidden;
     }
     
@@ -37,8 +40,8 @@
       color: #fff;
       background-color: #6184a8;
       padding: 2%;
-      border-top-right-radius: 4px;
-      border-top-left-radius: 4px;
+      border-top-right-radius: 2px;
+      border-top-left-radius: 2px;
     }
     
     img {
@@ -56,10 +59,11 @@
       height: 0;
       top: 0;
       opacity: 0;
-      padding: 18px 8%;
-      background-color: white;
-      overflow-y: scroll;
+      padding: 18px 25%;
+      background-color: #6495ED;
       transition: 0.8s ease;
+      text-align: center;
+      color: white
     }
     
     .card:hover .card-desc {
@@ -73,6 +77,8 @@
       margin: 40px 0 20px 0;
       text-align: center;
     }
+
+    
 
 </style>
 
@@ -109,6 +115,14 @@
               Action
             </a>
             <ul class="dropdown-menu-dark">
+              <li><a class="btn btn-primary" href = "https://github.com/kkoep/C06-PTS-PBP/issues" target="_blank"> Petunjuk Upload Wall Of Hope</a></li>
+            </ul>
+            <br>
+            <ul class="dropdown-menu-dark">
+              <li><a class="btn btn-primary" href = "https://github.com/kkoep/C06-PTS-PBP/issues" target="_blank">Buat Link Image</a></li>
+            </ul>
+            <br>
+            <ul class="dropdown-menu-dark">
               <li><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Buat Wall Of Hope</a></li>
             </ul>
         </ul>
@@ -132,83 +146,64 @@
   {% comment %} Add the data below this line {% endcomment %}
   <div id ="data"> </div>
   
-  
 
 <script>
-
-    {% comment %} const img_input = document.getElementById("#input_image");
-    var img_upload = "";
-
-    img_input.addEventListener("change", function(){
-        const reader = FileReader();
-        reader.addEventListener("load", () => {
-            img_upload = reader.result;
-            document.querySelector("#card").style.backgroundImage = `url(${img_upload})`
-
-        });
-        reader.readAsDataURL(this.files[0]);
-    }) {% endcomment %}
-
-
-    
-
-    function show(){
-        $('#data').empty()
-        $.ajax({
-        url: "json/"
-    }).done(data => {
-        data.forEach(value => {
-            let kartu = `<div class="cards" >
+  function show(){
+      $('#data').empty()
+      $.ajax({
+      url: "json/"
+      }).done(data => {
+      data.forEach(value => {
+          let kartu = `<div class="cards" >
+            
+                <div class="card" >
+                  <h2 class="card-title"> ${value.fields.judul}</h2>
+                  <img src = "${value.fields.image}" id = "img_id" alt = "img"> </img>
+                  <p class="card-desc">${value.fields.deskripsi}</p>
+                  <br>
+                </div>
+              </div>`
               
-                  <div class="card" >
-                    <h2 class="card-title"> ${value.fields.judul}</h2>
-                    <img src = ${value.fields.image}> id = "img_id"</img>
-                    <p class="card-desc">${value.fields.deskripsi}</p>
-                    <br>
-                  </div>
-                </div>`
-                
-            $('#data').append(kartu)
-        })
+          $('#data').append(kartu)
+      })
+      })
+    }
+
+  $(document).ready(function () {
+    myModal = new bootstrap.Modal('#exampleModal', {
+      keyboard: false
     })
-}
 
-$(document).ready(function () {
-  myModal = new bootstrap.Modal('#exampleModal', {
-    keyboard: false
+    $('#formm').submit(event => {
+      event.preventDefault()
+      
+      $.ajax({
+        url: "add/", 
+        method: "POST", 
+        data: {
+          judul: $('#input_title').val(),
+          deskripsi: $('#input_desc').val(),
+          image: $('#input_image').val()
+        },
+        headers: {
+          "X-CSRFToken": window.CSRF_TOKEN
+        },
+
+        success: function (json) {
+          myModal.hide()
+          show()
+
+          document.getElementById("formm").reset();
+        },
+
+        error: function (xhr, errmsg, err) {
+          console.log(xhr.status + ": " + xhr.responseText); 
+        }
+      });
+    })
   })
 
-  $('#formm').submit(event => {
-    event.preventDefault()
-    var images = $('#input_image').val()
-    var filename = images.match(/[^\\/]*$/)[0];
-    $.ajax({
-      url: "add/", 
-      method: "POST", 
-      data: {
-        judul: $('#input_title').val(),
-        deskripsi: $('#input_desc').val(),
-        image: filename
-      },
-      headers: {
-        "X-CSRFToken": window.CSRF_TOKEN
-      },
-
-      success: function (json) {
-        myModal.hide()
-        show()
-
-        document.getElementById("formm").reset();
-      },
-
-      error: function (xhr, errmsg, err) {
-        console.log(xhr.status + ": " + xhr.responseText); 
-      }
-    });
-  })
-})
-
-show()
+  show()
 </script>
 
 </div>
@@ -226,13 +221,13 @@ show()
       </div>
       <div class="modal-body"
         style="background-color:#FF3CAC;  background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);">
-        <form id = "formm" method="POST" action="", enctype = "multipart/form-data">
+        <form id = "formm" method="POST" action="">
             {% csrf_token %}
-            <div class="form-floating mb-3" style="width: 60%; margin: auto;">
+            <div class="form-floating mb-3" style="width: 60%; margin: auto; color : white", enctype="multipart/form-data">
                 {{ form.as_p }}
             </div>
 
-            
+
             <div style="text-align: center;">
                 <button class="btn login_btn bg-primary text-white" type="submit" value="Submit"> Submit </button>
             </div>
