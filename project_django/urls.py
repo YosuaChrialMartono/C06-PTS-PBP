@@ -22,7 +22,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('example_app.urls')),
+    path('article/', include('article.urls')),
     path('wallofhope/', include('wallofhope.urls'))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_URL)
-
-# TODO: Implement Routings Here
