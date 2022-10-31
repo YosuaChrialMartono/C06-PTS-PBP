@@ -20,7 +20,8 @@
     }
     
     .cards {
-      width: 100%;
+      width: 90%;
+      height: 90 %;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
@@ -115,7 +116,7 @@
               Action
             </a>
             <ul class="dropdown-menu-dark">
-              <li><a class="btn btn-primary" href = "https://github.com/kkoep/C06-PTS-PBP/issues" target="_blank"> Petunjuk Upload Wall Of Hope</a></li>
+              <li><a class="btn btn-primary" href="{% url 'wallofhope:petunjuk' %}"> Petunjuk Upload Wall Of Hope</a></li>
             </ul>
             <br>
             <ul class="dropdown-menu-dark">
@@ -162,6 +163,7 @@
                   <p class="card-desc">${value.fields.deskripsi}</p>
                   <br>
                 </div>
+                <a class="btn login_btn bg-primary text-white" style="color:blue;" href="delete/${value.pk}">Delete</a>
               </div>`
               
           $('#data').append(kartu)
@@ -226,8 +228,6 @@
             <div class="form-floating mb-3" style="width: 60%; margin: auto; color : white", enctype="multipart/form-data">
                 {{ form.as_p }}
             </div>
-
-
             <div style="text-align: center;">
                 <button class="btn login_btn bg-primary text-white" type="submit" value="Submit"> Submit </button>
             </div>

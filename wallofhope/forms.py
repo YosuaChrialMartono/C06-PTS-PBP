@@ -10,7 +10,8 @@ class DataForm(ModelForm):
         label = {
             'judul' : 'judul',
             'deskripsi' : 'deskripsi',
-            'image' : 'Link image'
+            'image' : 'image',
+            
         }
         widgets = {
             'judul' : forms.TextInput(attrs={'type' : 'text', 'class' :'form-control', 'id':'input_title'}),
