@@ -115,7 +115,6 @@ def post_article(request):
         article_form = form.save(commit=False)
         article_form.author = request.user
         article_form.save()
-        messages.success(request, 'Artikel telah berhasil dibuat!')
         return redirect('/article/')
     response = {'form': form}
     return render(request, 'form_article.html', response)
