@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {% block meta %}
+    {% endblock meta %}
+</head>
+<nav class="navbar sticky-top navbar-light justify-content-between" style="background-color: #f0ebce;">
+    <a class="font-weight-bold"><span class="mb-0" >Pacil Tau Stunting</span></a>
+    <div>
+        <a href="" class="mr-2" style="color: black;">Beranda</a>
+        <a href="" class="mr-2" style="color: black;">FAQ</a>
+        <a href="{% url 'article:show_main_page' %}" class="mr-2" style="color: black;">Artikel</a>
+        <a href="" class="mr-2" style="color: black;">Tracker</a>
+        <a href="{% url 'forum:show_forum' %}" class="mr-2" style="color: black;">Forum</a>
+        <a href="" style="color: black;">Wall of Hope</a>
+    </div>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'forum:logout_user' %}">
+            <button class="btn btn-outline-secondary">Logout</button>
+        </a>
+    {% else %}
+        <a href="{% url 'forum:login_user' %}">
+            <button class="btn btn-outline-secondary">Login</button>
+        </a>
+    {% endif %}
+
+</nav>
+
+<body >
+    <div class="d-flex justify-content-center m-4">
+        {% block content %}
+        {% endblock content %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+<!-- Footer -->
+<footer class="text-center text-lg-start text-muted">
+    
+    <!-- Copyright -->
+    <hr>
+    <div class="text-center py-2" >
+        © 2022 Copyright: <a class="text-reset fw-bold" href="">Pacil Tau Stunting</a>
+    </div>
+    <div class="mb-4">
+        <a href="https://github.com/kkoep/C06-PTS-PBP" class="me-4 text-reset">
+            <i class="fa fa-github fa-lg"></i>
+        </a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+</html>

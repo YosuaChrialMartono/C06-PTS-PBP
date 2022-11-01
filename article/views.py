@@ -1,5 +1,4 @@
 import datetime
-from turtle import title
 from django.shortcuts import render
 from article.models import ArticleForm, ArticlePage
 from django.http import HttpResponse

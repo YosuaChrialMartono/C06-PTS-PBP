@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'article',
     'widget_tweaks',
     'wallofhope',
+    'forum',
 ]
 
 MIDDLEWARE = [
