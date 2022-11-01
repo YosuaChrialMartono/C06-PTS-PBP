@@ -1,0 +1,193 @@
+
+{% extends 'forum_base.html' %}
+{% block meta %}
+<title>Forum</title>
+<link rel="stylesheet" href="../static/css/main_page.css"/>
+{% endblock meta %}    
+
+{% block content %}
+
+
+<!-- Modal -->
+{% if request.user.is_authenticated %}
+<div class="modal fade" id="create-thread" tabindex="-1" role="dialog" aria-labelledby="create-thread" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Buat Postingan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="" onsubmit="return false" class=" shadow-sm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                            <label for="title-input">Judul</label>
+                            <input type="text" class="form-control" id="title-input" placeholder="Tulis judul pertanyaan di sini" required>
+                    </div>
+                    <div class="form-group">
+                            <label for="content-input">Pertanyaan</label>
+                            <textarea class="form-control" id="content-input" rows="3" placeholder="Tulis pertanyaanmu di sini" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" onclick="createThread()" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="modal fade" id="create-thread" tabindex="-1" role="dialog" aria-labelledby="create-thread" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            Untuk memulai diskusi atau membuat pertanyaan, login dulu, yuk.
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            <a href="{% url 'forum:login_user' %}">
+                <button type="button" class="btn btn-primary">Login</button>
+            </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="w-75" style="max-width: 75%;">
+    <h3 class="">Forum Diskusi</h3>
+    
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#create-thread">
+        Buat Postingan
+    </button>
+    <div id="thread-container"></div>
+</div>
+
+
+<script>
+    function openDetailed(id) {
+    
+        $.get({
+            url:`detailed/${id}/`,
+            type: 'get',
+            data: {},
+        });
+    }
+
+
+    async function doAjax(url, method, params = {}) {
+        return $.ajax({
+        url: url,
+        type: method,
+        dataType: 'json',
+        data: params
+        });
+    }
+
+    function makeThreadComponent(id, username, date, title, content, replies) {
+        
+        return `
+            <div id="comment-${id}" class="thread card my-4 mr-4 shadow-sm">
+                <div class="card-body">
+                    <div>
+                        <h5 class="title card-title">${title}</h5>
+                        <div class="meta-thread card-subtitle d-flex justify-content-between">
+                            <h6 class="mb-2 text-muted">Ditulis oleh: ${username}</h6>
+                            <h6 class="mb-2 text-muted">${date}</h6>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <p>${content}</p>
+                    </div>
+                    
+                    <div>
+                        <a id="balas-${id}" href="./detailed/${id}/">
+                            <button type="button" class="btn btn-outline-secondary">Lihat ${replies}</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `
+    }
+
+    function deleteComment(id) {
+        $.post({
+                url:'./delete-comment/',
+                type: 'post',
+                data: {
+                    id
+                },
+                success: refresh,
+        });
+    }
+
+
+    async function refresh() {
+        
+        data = await doAjax("./json/", 'GET')
+        
+        $('#thread-container').empty();
+        for (i = 0; i < data.length; i++) { 
+            user = await doAjax(`./user/${data[i].fields.author}/json/`, 'GET');
+            
+            $('#thread-container').append(
+                makeThreadComponent(
+                    data[i].pk,
+                    user[0].fields.username,
+                    data[i].fields.date,
+                    data[i].fields.title,
+                    data[i].fields.content,
+                    data[i].fields.replies
+                )
+            );
+            if (user[0].can_delete) {
+                
+                $(`#balas-${data[i].pk}`).after(
+                    `<button type="button" id="hapus-${data[i].pk}" onclick="deleteComment(${data[i].pk})" class="btn btn-outline-secondary ml-2">Hapus</button>`
+                )
+            }
+        }
+        $('#title-input').val("");
+        $('#content-input').val("");
+    }
+
+
+    function createThread() {
+
+        var title = $('#title-input').val();
+        var content = $('#content-input').val();
+        if (title != "" && content != "") {
+            $("#create-thread").css("display","none");
+            $("#create-thread").attr("aria-hidden", "true");
+            $("#create-thread").removeClass("show");
+            $("body").removeClass("modal-open");
+            $(".modal-backdrop").remove();
+            $.post({
+                url:'create/',
+                type: 'post',
+                data: {
+                    title,
+                    content
+                },
+                success: refresh,
+            });
+        }
+    }
+
+    $(document).ready(function(){
+        refresh();
+    });
+</script>
+{% endblock content %}
