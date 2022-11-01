@@ -5,6 +5,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -12,97 +13,49 @@
         <title>Pacil Tau Stunting</title>
         <style>
             .landing-section {
-                min-height: 100vh;
-                width: 100vw;
+                height: 100vh;
+                width: 100%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 flex-direction: column;
+                background-color: #F0EBCE;
             }
             
             .landing-main { 
-                background-image: url({% static "gambar.jpg" %}); 
+                background: url(https://images.unsplash.com/photo-1502781252888-9143ba7f074e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071&q=80) no-repeat center center fixed; 
                 background-size: cover;
+                width: 100vw;
             }
 
             .landing-section-content {
+                border-radius: 25px;
                 padding: 2rem;
-                background: rgba(0,0,0,0.5);
-                width: 100vw;
+                width: 80vw;
+                display: flex;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                color: #ccc;
+                color: black;
+                font-weight: bold;
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(7px);
             }
-
-            .brand {
-                margin: 0;
-                color: #c55e00;
-            }
-              
-            .brand-text {
-                color: #c55e00;
-            }
-
-            .wrapper {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-                height: 50px;
-                background-color: black;
-            }
-
-            .tittleApp {
-                display: flex;
-                flex-direction: row;
-                font-size: 20px;
-                padding: 10px;
-                color: white;
-            }
-
-            .navigasi {
-                display: flex;
-                justify-content: center;
-            }
-
-            .navigasi > li {
-                list-style-type: none;
-                padding: 10px;
-            }
-
-            .navigasi > li > a {
-                color: white;
-                font-size: 18px;
-                text-decoration: none;
-                text-transform: capitalize;
-            }
-
-
-            </style>
+        </style>
     </head>
 
-    <nav class="wrapper">
-        <div class="tittleApp">
-            <div class="first">Pacil</div>
-            <div class="middle">Tau</div>
-            <div class="last">Stunting</div>
-        </div>
-        <ul class="navigasi">
-            <li><a href="">kontak</a></li>
-            <li><a href="{% url 'login:login_page' %}">login</a></li>
-        </ul>
-    </nav>
-
-    <section class="landing-section landing-main">
-        <h1 class="brand">PTS</h1>
-        <h2>
-            <span class="brand-text">P</span>acil
-            <span class="brand-text">T</span>au
-            <span class="brand-text">S</span>tunting
-          </h2>
-        <p class="landing-main-text">
-            Jumlah stunting Indonesia sangat tinggi, diperkirakan sekitar 149,2 juta anak-anak
-            <br>
-            Pacil Tau Stunting hadir untuk ikut serta membantu pencegahan stunting di Indonesia
-        </p>
-    </section>
+    <body>
+        {% include 'navbar.html' %}
+        <section class="landing-section landing-main">
+            <div class="landing-section-content">
+                <div class="landing-title" style="font-family: 'Roboto Slab', serif;">
+                    <h2>Pacil Tau Stunting</h2>
+                </div>
+                <p class="landing-main-text" style="font-family: 'Montserrat', sans-serif; ">
+                    Jumlah stunting Indonesia sangat tinggi, diperkirakan sekitar 149,2 juta anak-anak
+                    <br>
+                    Pacil Tau Stunting hadir untuk ikut serta membantu pencegahan stunting di Indonesia
+                </p>
+            </div>
+        </section>
+    </body>
