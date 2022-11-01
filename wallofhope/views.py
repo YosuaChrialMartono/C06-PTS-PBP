@@ -54,6 +54,15 @@ def petunjuk(request):
     return render(request, "petunjuk.html", context)
 
     
+def show_wallofhope_guest(request):
+    data_user = wallofhope.objects.all()
+    form = DataForm 
+    context = {
+        'wallofhope_data': data_user,
+        'form' : form
+    }
+    return render(request, "wallofhope.html", context)
+
 
 
 def login_user(request):
