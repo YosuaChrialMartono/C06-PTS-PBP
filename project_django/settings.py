@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     'example_app',
     'katalog',
     'login',
+    'article',
+    'widget_tweaks',
+    'wallofhope',
+    'forum',
+    'tracking',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +148,9 @@ for directory in [*STATICFILES_DIRS, STATIC_ROOT]:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "login.User"
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), ) 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = '/media/' 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
