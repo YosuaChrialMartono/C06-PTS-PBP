@@ -1,0 +1,321 @@
+
+{% extends 'forum_base.html' %}
+{% block meta %}
+<title>Forum</title>
+
+{% endblock meta %}    
+
+{% block content %}
+<!-- Modal -->
+<div class="modal fade" id="create-thread" tabindex="-1" role="dialog" aria-labelledby="create-thread" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            Untuk menulis komentar, login dulu, yuk.
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            <a href="{% url 'forum:login_user' %}">
+                <button type="button" class="btn btn-primary">Login</button>
+            </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w-75" style="max-width: 75%;">
+    <h3>Forum Diskusi</h3>
+    <a href="{% url 'forum:show_forum' %}"> < Kembali</a>
+    
+    <div id="thread-container"></div>
+</div>
+
+
+
+<script>
+    async function doAjax(url, method, params = {}) {
+        return $.ajax({
+            url: url,
+            type: method,
+            dataType: 'json',
+            data: params
+        });
+    }
+
+    function openComment(id) {
+        $(`#create-comment-${id}`).removeAttr("hidden");
+        $(`#balas-${id}`).prop("hidden", true);
+    }
+
+    function closeComment(id) {
+        $(`#create-comment-${id}`).prop("hidden", true);
+        $(`#balas-${id}`).prop("hidden", false);
+    }
+
+    function incrementReplies(id) {
+        var thread = parseInt(window.location.pathname.split('/')[3])
+
+        if (id == thread) {
+            $.ajax({
+                url:'../../increment_replies/',
+                type: 'post',
+                data: {
+                    id
+                },
+                success: refresh,
+            });
+        } else {
+            $.ajax({
+                url:'../../increment_replies/',
+                type: 'post',
+                data: {
+                    id
+                },
+                success: function() {
+                    $.ajax({
+                        url:`../../detailed/${id}/json/`,
+                        type: 'GET',
+                        data: {
+                            id
+                        },
+                        success: function(user) {
+                            incrementReplies(user[0].fields.parent)
+                        }
+                    });
+                } 
+            });
+        }
+    }
+
+    function makeComment(parent) {
+        var content = $(`#content-input-${parent}`).val();
+       
+        if (content != "") {
+            $.post({
+                url:'../../comment/',
+                type: 'post',
+                data: {
+                    parent,
+                    content
+                },
+                success: function() {
+                    incrementReplies(parent)
+                }
+            });
+        }
+    }
+
+    function makeCommentComponent(parent, id, username, date, title, content, replies, depth) {
+        parentName = $(`#ditulis-oleh-${parent}`).text();
+        return `
+            <div id="comment-${id}" class="thread card my-4 mr-4 shadow-sm" style="margin-left: ${20*depth}px; margin-right: 1.5rem!important;">
+                <div class="card-body">
+                    <div>
+                        <div class="meta-thread card-subtitle d-flex justify-content-between">
+                            <div>
+                                <h6 class="mb-2 ">Ditulis oleh: <span id="ditulis-oleh-${id}">${username}</span></h6>
+                                <h6 class="mb-2 ">Membalas <a href="#comment-${parent}">${parentName}</a></h6>
+                            </div>
+                            <h6 class="mb-2 text-muted">${date}</h6>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <p>${content}</p>
+                    </div>
+                    <hr>
+                    <div>
+                        {% if request.user.is_authenticated %}
+                            <button type="button" id="balas-${id}" onclick="openComment(${id})" class="btn btn-outline-secondary">Balas ${replies}</button>
+                        {% else %}
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#create-thread">Balas ${replies}</button>
+                        {% endif %}
+                        <form id="create-comment-${id}" method="POST" action="" onsubmit="return false" class="my-4" hidden>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                    <textarea class="form-control" id="content-input-${id}" rows="3" placeholder="Berikan komentar" required></textarea>
+                            </div>
+                            <button type="button" onclick="closeComment(${id})" class="btn btn-outline-secondary">Batal</button>
+                            <button type="submit" onclick="makeComment(${id})" class="btn btn-outline-secondary">Kirim</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        `
+    }
+
+    function showComment(parent, depth) {
+        
+        $.ajax({
+            async: false,
+            url: '../../child_comment/',
+            type: 'GET',
+            dataType: 'json',
+            data: {parent},
+            success: function(childs) {
+                
+                for (let key in childs) {
+                    
+                    $.ajax({
+                        async: false,
+                        url: `../../user/${childs[key].fields.author}/json/`,
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {},
+                        success: function(user) {
+                            
+                            $(`#comment-${parent}`).after(
+                                makeCommentComponent(
+                                    parent,
+                                    childs[key].pk,
+                                    user[0].fields.username,
+                                    childs[key].fields.date,
+                                    childs[key].fields.title,
+                                    childs[key].fields.content,
+                                    childs[key].fields.replies,
+                                    depth
+                                )
+                            );
+                            
+                            if (user[0].can_delete) {
+                                $(`#balas-${childs[key].pk}`).after(
+                                    `<button type="button" id="hapus-${childs[key].pk}" onclick="deleteComment(${childs[key].pk})" class="btn btn-outline-secondary ml-2">Hapus</button>`
+                                )
+                            }
+                            showComment(childs[key].pk, depth+1);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function makeThreadComponent(id, username, date, title, content, replies) {
+        
+        return `
+            <div id="comment-${id}">
+                <div class="thread card my-4 mr-4 shadow-sm">
+                    <div class="card-body">
+                        <div>
+                            <h5 class="title card-title">${title}</h5>
+                            <div class="meta-thread card-subtitle d-flex justify-content-between">
+                                <h6 class="mb-2 text-muted">Ditulis oleh: <span id="ditulis-oleh-${id}">${username}</span></h6>
+                                <h6 class="mb-2 text-muted">${date}</h6>
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <p>${content}</p>
+                        </div>
+                        <hr>
+                        <div>
+                            
+                            {% if request.user.is_authenticated %}
+                                <button type="button" id="balas-${id}" onclick="openComment(${id})" class="btn btn-outline-secondary">Balas ${replies}</button>
+                            {% else %}
+                                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#create-thread">Balas ${replies}</button>
+                            {% endif %}
+                            <form id="create-comment-${id}" method="POST" action="" onsubmit="return false" class="my-4" hidden>
+                                {% csrf_token %}
+                                <div class="form-group">
+                                        <textarea class="form-control" id="content-input-${id}" rows="3" placeholder="Berikan komentar" required></textarea>
+                                </div>
+                                <button type="button" onclick="closeComment(${id})" class="btn btn-outline-secondary">Batal</button>
+                                <button type="submit" onclick="makeComment(${id})" class="btn btn-outline-secondary">Kirim</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <h5>Komentar</h5>
+            </div>
+            
+        `
+    }
+
+    function decrementReplies(id, replies) {
+        var thread = parseInt(window.location.pathname.split('/')[3])
+
+        if (id == thread) {
+            $.ajax({
+                url:'../../decrement_replies/',
+                type: 'post',
+                data: {
+                    id,
+                    replies
+                },
+                success: refresh,
+            });
+        } else {
+            $.ajax({
+                url:'../../decrement_replies/',
+                type: 'post',
+                data: {
+                    id,
+                    replies
+                },
+                success: function() {
+                    $.ajax({
+                        url:`../../detailed/${id}/json/`,
+                        type: 'GET',
+                        data: {
+                            id
+                        },
+                        success: function(user) {
+                            decrementReplies(user[0].fields.parent, replies)
+                        }
+                    });
+                } 
+            });
+        }
+    }
+
+    function deleteComment(id) {
+        $.post({
+                url:'../../delete-comment/',
+                type: 'post',
+                data: {
+                    id
+                },
+                success: function(data) {
+                    parent = data.split('_')[0]
+                    replies = data.split('_')[1]
+                    decrementReplies(parseInt(parent), parseInt(replies) + 1)
+                }
+        });
+    }
+
+    async function refresh(parent, depth) {
+        
+        data = await doAjax("./json/", 'GET')
+        $('#thread-container').empty();
+        for (i = 0; i < data.length; i++) {  
+            user = await doAjax(`../../user/${data[i].fields.author}/json/`, 'GET');
+            
+            $('#thread-container').append(
+                makeThreadComponent(
+                    data[i].pk,
+                    user[0].fields.username,
+                    data[i].fields.date,
+                    data[i].fields.title,
+                    data[i].fields.content,
+                    data[i].fields.replies
+                )
+            );
+        }
+
+        await showComment(data[0].pk, 0);
+    }
+
+    $(document).ready(function(){
+        refresh();
+    });
+</script>
+
+
+{% endblock content %}

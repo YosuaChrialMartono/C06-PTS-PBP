@@ -1,0 +1,13 @@
+.row{
+  --bs-gutter-x:0;
+  align-items: flex-start;
+}
+
+.card-footer{
+  align-items: center;
+}
+
+.card-text{
+  text-align: justify;
+    text-justify: inter-word;
+}
