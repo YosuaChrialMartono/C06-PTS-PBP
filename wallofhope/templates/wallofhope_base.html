@@ -1,5 +1,5 @@
 
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +17,7 @@
 </head>
 
 
-{% comment %} {% if request.user.is_authenticated %} {% endcomment %}
+ {% if request.user.is_authenticated %} 
 <nav class="navbar navbar-lights fixed-top" style="background-color: #f0ebce;">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Pacil Tau Stunting</a>
@@ -74,7 +74,7 @@
     </div>
   </div>
 </nav>
-{% comment %} {% else %} {% endcomment %}
+ {% else %} 
 <nav class="navbar navbar-lights fixed-top" style="background-color: #f0ebce;">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Pacil Tau Stunting</a>
@@ -122,7 +122,7 @@
     </div>
   </div>
 </nav>
-{% comment %} {% endif %} {% endcomment %}
+ {% endif %} 
 
 <body >
     

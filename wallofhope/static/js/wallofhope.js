@@ -9,7 +9,7 @@ function show(){
             <div class="card" >
               <h2 class="card-title"> ${value.fields.judul}</h2>
               <img src = "${value.fields.image}" id = "img_id" alt = "img"> </img>
-              <p class="card-desc">${value.fields.deskripsi}</p>
+              <div class="card-desc">${value.fields.deskripsi}</div>
               <br>
             </div>
             <a class="btn login_btn bg-primary text-white" style="color:blue;" href="delete/${value.pk}">Delete</a>
@@ -22,9 +22,7 @@ function show(){
 
 
 $(document).ready(function ()  {
-  myModal = new bootstrap.Modal('#exampleModal', {
-  keyboard: false
-  })
+
 
   $('#formm').submit(event => {
     event.preventDefault()
@@ -42,7 +40,6 @@ $(document).ready(function ()  {
       },
 
       success: function (json) {
-        myModal.hide()
         show()
 
         document.getElementById("formm").reset();
