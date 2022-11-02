@@ -22,8 +22,8 @@
             </div>
         </div>
 
-        
-        <div class="d-flex justify-content-center mx-auto">
+        {% if role == 'DOKTER' %}
+        <div id="post_article" class="d-flex justify-content-center mx-auto">
             <a
               class="btn btn-primary m-3"
               href="{% url 'article:post_article' %}"
@@ -31,7 +31,7 @@
               >Post Article</a
             >
         </div>
-
+        {% endif %}
         <div id="pagination" class="d-flex justify-content-center mx-auto">
             {% if page_num != 1 %}
             <button id = "prev_page_button" class="btn btn-primary m-3" onclick="prev_page()">Previous page</button>    
