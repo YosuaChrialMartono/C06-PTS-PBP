@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.shortcuts import render
 from forum.models import Comment
 from django.http import HttpResponse
@@ -12,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 import json
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
 
 def show_forum(request):
     '''

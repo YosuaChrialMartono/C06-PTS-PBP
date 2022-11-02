@@ -12,6 +12,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+
 from article.models import ArticleForm, ArticlePage
 
 def show_main_page(request):

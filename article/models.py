@@ -1,9 +1,11 @@
 from datetime import datetime
 from enum import unique
-from django.contrib.auth.models import User
 from django.db import models
 from django.forms import ModelForm
+from django.forms import ChoiceField
 import datetime
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
 
 
 # Create your models here.
