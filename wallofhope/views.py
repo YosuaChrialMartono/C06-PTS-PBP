@@ -26,7 +26,7 @@ def show_json(request):
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 
-# @login_required(login_url='/wallofhope/login/')
+@login_required(login_url='/wallofhope/login/')
 def add_form_ajax(request):
     form = DataForm(request.POST)
     if(form.is_valid() and request.method == 'POST'):
@@ -43,7 +43,7 @@ def add_form_ajax(request):
     else:
         messages.success(request, 'Tidak bisa menambahkan form tidak valid')
 
-
+@login_required(login_url='/wallofhope/login/')
 def petunjuk(request):
     data_user = wallofhope.objects.all()
     form = DataForm 
@@ -53,15 +53,6 @@ def petunjuk(request):
     }
     return render(request, "petunjuk.html", context)
 
-    
-def show_wallofhope_guest(request):
-    data_user = wallofhope.objects.all()
-    form = DataForm 
-    context = {
-        'wallofhope_data': data_user,
-        'form' : form
-    }
-    return render(request, "wallofhope.html", context)
 
 
 
@@ -101,7 +92,7 @@ def register(request):
     return render(request, 'register_wallofhope.html', context)
 
 
-# @login_required(login_url='/wallofhope/login/')
+@login_required(login_url='/wallofhope/login/')
 def delete_card(request, id):
     task = wallofhope.objects.get(id=id)
     task.delete()

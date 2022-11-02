@@ -5,7 +5,6 @@ from wallofhope.views import show_json
 from wallofhope.views import add_form_ajax
 from wallofhope.views import petunjuk
 from wallofhope.views import delete_card
-from wallofhope.views import show_wallofhope_guest
 
 app_name = 'wallofhope'
 
@@ -18,9 +17,6 @@ urlpatterns = [
     path('login/', login_user, name='login_user'),
     path('logout/', logout_user, name='logout_user'),
     path('register/', register, name='register'),
-
-    # path('a', show_wallofhope_guest, name= 'show_wallofhope_guest')
-
     
 ]
     
