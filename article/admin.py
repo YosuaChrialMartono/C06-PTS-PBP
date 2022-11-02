@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from article.models import ArticlePage
+from article.models import ArticlesPage
 
 # Register your models here.
 
-admin.site.register(ArticlePage)
+admin.site.register(ArticlesPage)
