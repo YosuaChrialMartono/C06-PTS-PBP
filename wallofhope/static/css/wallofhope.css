@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-image: linear-gradient(0deg, #4E6C50 0%, #aa8b56 100%);
+    background: linear-gradient(0deg, #4E6C50 0%, #aa8b56 100%) fixed;
     overflow-x: hidden;
   }
   
