@@ -59,11 +59,11 @@
 
 <nav class="wrapper fixed-top">
     <div class="wrapper2">
-        <ul class="navigasi"><li><a href="">Pacil Tau Stunting</a></li></ul>
+        <ul class="navigasi"><li><a href="{% url 'login:landing_page'%}">Pacil Tau Stunting</a></li></ul>
         <ul class="navigasi">
             <li><a href="">FAQ</a></li>
             <li><a href="">Saran</a></li>
-            <li><a href="">Artikel</a></li>
+            <li><a href="{% url 'article:show_main_page'%}">Artikel</a></li>
             <li><a href="">Tracker</a></li>
             <li><a href="">Forum Bertanya</a></li>
             <li><a href="{% url 'wallofhope:show_wallofhope' %}">Wall Of Hope</a></li>
