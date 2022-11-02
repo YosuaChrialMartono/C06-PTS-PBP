@@ -1,0 +1,66 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+  <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+  <title>Signup</title>
+</head>
+<body style="background: -webkit-gradient(linear, left top, left bottom, from(#4E6C50), to(#AA8B56)) fixed;">
+  {% include 'navbar.html' %}
+  <div class="container">
+    <h4 style="text-align: center; font-family: 'Montserrat', sans-serif; color: #F0EBCE;">Daftar Akun</h4>
+    <div class="row">
+      <div class="card">
+        <div class="card-body">
+          <form class="form-signin" method="post" id="signup-form">
+            {% csrf_token %}
+          <div class="col-md-12">
+            <label for="email">Email:</label> <br>
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="" required autofocus> <br>
+          </div>
+          
+          <div class="col-md-12">
+            <label for="username">Username:</label> <br>
+            <input type="text" name="username" id="inputUsername" class="form-control" placeholder="" required> <br>
+          </div>
+          <div class="col-md-12">
+            <label for="password1">Password:</label> <br>
+            <input type="password" name="password1" id="inputPassword1" class="form-control" placeholder="" required> <br>
+          </div>
+          <div class="col-md-12">
+            <label for="password2">Confirm Password:</label> <br>
+            <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="" required><br>
+          </div>
+          <div class="col-md-12">
+            <label for="name">Nama Lengkap:</label> <br>
+            <input type="text" name="nama" id="inputNama" class="form-control" placeholder=""> <br>
+          </div>
+
+          <div class="col-md-12">
+            <select name="role">
+              <option value="DOKTER">Dokter</option>
+              <option value="PASIEN">Pasien</option>
+            </select><br><br>
+          </div>
+          
+
+          <p id="error" style="color: red"></p>
+          <button class="btn btn-md btn-primary" id="reg-button" type="submit">Register</button>
+  
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</body>
+
+</html>
