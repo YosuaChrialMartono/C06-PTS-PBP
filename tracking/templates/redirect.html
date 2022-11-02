@@ -1,0 +1,23 @@
+<head>
+    <meta http-equiv="refresh" content="3; url=../../forum" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Redirecting...</title>
+    {% extends 'forum_base.html' %}
+    {% block meta %} 
+    {% endblock meta%}
+</head>
+
+{% block content %}
+<h1 id="timer">
+    Data berhasil disimpan.
+    Redirecting in 
+</h1>
+<script type="text/javascript">
+    var x = setInterval(function(){
+        var seconds = 3
+        document.getElementById("timer").innerHTML = "Data berhasil disimpan.\nRedirecting in " + seconds + " s";
+        seconds--;
+    }, 1000)
+</script>
+{% endblock content %}
