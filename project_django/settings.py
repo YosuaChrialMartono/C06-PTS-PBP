@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'example_app',
-    'katalog',
     'login',
     'article',
     'wallofhope',
