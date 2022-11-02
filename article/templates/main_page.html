@@ -15,16 +15,7 @@
 <body>
     {% block content %}
     <div id="main">
-        <div class="container-fluid p-0 ">
-            <nav class="navbar sticky-top navbar-light" style="background-color: burlywood">
-                <div class="float-left mx-4">
-                    <h5>Logged in as : {{user}}</h5>
-                </div>
-                <div class="float-right mx-4">
-                    <a class="btn btn-primary" href="{% url 'article:logout' %}" role="button">Logout</a>
-                </div>
-            </nav>
-        </div>
+        {% include 'navbar.html' %}
         
         <div id="articles">
             <div id="article_card" class="row justify-content-between m-4">
