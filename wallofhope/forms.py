@@ -18,3 +18,5 @@ class DataForm(ModelForm):
             'deskripsi' : forms.TextInput(attrs={'type' : 'text', 'class' : 'form-control', 'id':'input_desc'}),
             'image' : forms.TextInput(attrs={'type': 'text', 'class' : "form-control", 'id' : 'input_image'})
         }
+
+
