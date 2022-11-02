@@ -71,9 +71,3 @@ def petunjuk(request):
     return render(request, "petunjuk.html", context)
 
 
-
-@login_required(login_url='/login/')
-def delete_card(request, id):
-    task = wallofhope.objects.get(id=id)
-    task.delete()
-    return redirect('wallofhope:show_wallofhope')
