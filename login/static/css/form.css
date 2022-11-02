@@ -1,0 +1,52 @@
+body{
+    font-family: sans-serif;
+    color:black;
+}
+
+h4{
+    text-align: center; 
+    margin: 2rem auto 2.5rem auto;
+}
+
+.container{
+    width: 200%;
+    margin: 1.8rem auto 0 auto;
+}
+
+
+@media(min-width: 768px){
+    .container{
+      max-width: 640px
+    }
+}
+
+input[type="radio"]{
+    margin: 0 10px 0 40px;
+}
+
+button{
+    padding: 8px 0;
+    margin: 2px 0;
+}
+
+#reg-button{
+    width: 448px;
+    padding: 8px 0;
+    margin: 2px 0;
+}
+.row{
+    width: 500px;
+    margin-left: 70px;
+}
+
+.card{
+    border-radius: 30px;
+    background-color : #F0EBCE;
+    width: 500px;
+}
+
+.card-body{
+    width: 480px;
+}
+
+

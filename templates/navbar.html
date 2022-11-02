@@ -1,0 +1,78 @@
+{% load static %}
+
+<style>
+    .wrapper {
+        width: 100vw;
+    }
+
+    .wrapper2 {
+        padding-top:15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #395144;
+        justify-content: space-between;
+        height: 50px;
+    }
+
+    .navigasi {
+        padding-left: 5px;
+        display: flex;
+        justify-content: left;
+    }
+
+    .navigasi2 {
+        padding-right: 5px;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .navigasi > li {
+        list-style-type: none;
+        padding: 10px;
+    }
+
+    .navigasi2 > li {
+        list-style-type: none;
+        padding: 10px;
+    }
+
+    .navigasi > li > a {
+        font-family: 'Montserrat', sans-serif;
+        color: #F0EBCE;
+        font-size: 14px;
+        text-decoration: none;
+        text-transform: capitalize;
+        font-weight: bold;
+    }
+
+    .navigasi2 > li > a {
+        font-family: 'Montserrat', sans-serif;
+        color: #F0EBCE;
+        font-size: 14px;
+        text-decoration: none;
+        text-transform: capitalize;
+        font-weight: bold;
+    }
+</style>
+
+<nav class="wrapper">
+    <div class="wrapper2">
+        <ul class="navigasi"><li><a href="">Pacil Tau Stunting</a></li></ul>
+        <ul class="navigasi">
+            <li><a href="">FAQ</a></li>
+            <li><a href="">Saran</a></li>
+            <li><a href="">Artikel</a></li>
+            <li><a href="">Tracker</a></li>
+            <li><a href="">Forum Bertanya</a></li>
+            <li><a href="">Wall Of Hope</a></li>
+        </ul>
+        <ul class="navigasi2">
+            {{ user }}
+            <li><a href="{% url 'login:signup' %}">signup</a></li>
+            <li><a href="{% url 'login:login_page' %}">login</a></li>
+            <li><a href="{% url 'login:logout' %}">logout</a></li>
+        </ul>
+    </div>
+</nav>
