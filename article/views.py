@@ -12,6 +12,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+from django.db.utils import OperationalError
+
 
 from article.models import ArticleForm, ArticlesPage
 
@@ -23,8 +25,12 @@ def show_main_page(request):
     page_num = request.GET.get('page', 1)
     page_num = int(page_num)
     p = Paginator(articles, 12)
-    page_range = p.page_range
-    
+
+    try:
+        page_range = p.page_range
+    except OperationalError:
+        page_range = 1
+        
     if request.user.username == '':
         role = "PENGUNJUNG"
     else:
