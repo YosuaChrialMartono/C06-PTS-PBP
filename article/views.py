@@ -34,17 +34,17 @@ def show_main_page(request):
             role = request.user.role
         page_num = int(page_num)
         page = p.page(page_num)
-    
+        last_page = 0
+        for i in page_range:
+            last_page = i
     except EmptyPage:
         page_num = 1
     
     except OperationalError:
         page_range = 1
         page_num = 1
+        last_page = 1
 
-    last_page = 0
-    for i in page_range:
-        last_page = i
     context = {
         'page_num' : page_num,
         'page_range' : last_page,
