@@ -8,19 +8,29 @@
 
 {% block content %}
 
+{% include 'navbar.html' %}
 
-  <br>
-  <br>
-  <br>
-  <h1 style = "color:black;"> Wall Of Hope </h1>
+<br>
+<br>
+  <h1 style = "color: #f0ebce;"> Wall Of Hope </h1>
 
   {% comment %} Add the data below this line {% endcomment %}
+
+  {% if role == 'PASIEN' %}
+  <div class = "button1">
+  <a class="btn btn-primary"href="{% url 'wallofhope:petunjuk' %}">Petunjuk Upload</a>
+  <a class="btn btn-primary" href="https://github.com/kkoep/C06-PTS-PBP/issues" target="_blank">Buat Link Image</a>
+  <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style = "color: white">Buat Wall Of Hope</a></li>
+  </div>
+  {% endif %}
+
   <div id ="data"> </div>
+
   
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="color:white; background-color:#395144">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Buat Wall Of Hope</h5>
         <a type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -28,7 +38,7 @@
         </a>
       </div>
       <div class="modal-body"
-        style="background-color:#FF3CAC;  background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);">
+        style="background-image: linear-gradient(0deg, #4E6C50 0%, #aa8b56 100%);">
         <form id = "formm" method="POST" action="">
             {% csrf_token %}
             <div class="form-floating mb-3" style="width: 60%; margin: auto; color : white", enctype="multipart/form-data">
