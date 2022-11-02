@@ -1,5 +1,4 @@
 body{
-    background-color : white;
     font-family: sans-serif;
     color:black;
 }
@@ -41,6 +40,8 @@ button{
 }
 
 .card{
+    border-radius: 30px;
+    background-color : #F0EBCE;
     width: 500px;
 }
 
