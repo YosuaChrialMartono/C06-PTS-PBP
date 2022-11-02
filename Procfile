@@ -1,2 +1,2 @@
-release: sh -c 'python manage.py makemigrations && python manage.py migrate && python manage.py migrate --run-syncdb '
+release: sh -c 'python manage.py makemigrations && python manage.py migrate'
 web: gunicorn project_django.wsgi --log-file -
