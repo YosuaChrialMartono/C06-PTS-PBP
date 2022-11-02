@@ -23,24 +23,24 @@ def show_main_page(request):
     '''
     articles = ArticlesPage.objects.all()
     page_num = request.GET.get('page', 1)
-    page_num = int(page_num)
     p = Paginator(articles, 12)
 
     try:
         page_range = p.page_range
-    except OperationalError:
-        page_range = 1
-        
-    if request.user.username == '':
-        role = "PENGUNJUNG"
-    else:
-        role = request.user.role
 
-    try:
+        if request.user.username == '':
+            role = "PENGUNJUNG"
+        else:
+            role = request.user.role
+        page_num = int(page_num)
         page = p.page(page_num)
+    
     except EmptyPage:
         page_num = 1
-
+    
+    except OperationalError:
+        page_range = 1
+        page_num = 1
 
     last_page = 0
     for i in page_range:
