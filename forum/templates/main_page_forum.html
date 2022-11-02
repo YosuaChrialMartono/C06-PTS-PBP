@@ -12,7 +12,7 @@
 {% if request.user.is_authenticated %}
 <div class="modal fade" id="create-thread" tabindex="-1" role="dialog" aria-labelledby="create-thread" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <div class="modal-content" >
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Buat Postingan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" onclick="createThread()" class="btn btn-primary">Submit</button>
+                        <button type="submit" onclick="createThread()" class="btn btn-primary" style="background-color: #AA8B56; border-color: #AA8B56;">Submit</button>
                     </div>
                 </form>
             </div>
@@ -55,7 +55,7 @@
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-            <a href="{% url 'forum:login_user' %}">
+            <a href="{% url 'login:login_page' %}">
                 <button type="button" class="btn btn-primary">Login</button>
             </a>
             </div>
@@ -65,10 +65,10 @@
 {% endif %}
 
 <div class="w-75" style="max-width: 75%;">
-    <h3 class="">Forum Diskusi</h3>
+    <h3 class="" style="color: #F0EBCE;">Forum Diskusi</h3>
     
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#create-thread">
+    <button type="button" class="btn" data-toggle="modal" data-target="#create-thread" style="color: #F0EBCE;background-color: #AA8B56; border-color: #AA8B56;">
         Buat Postingan
     </button>
     <div id="thread-container"></div>
@@ -98,10 +98,10 @@
     function makeThreadComponent(id, username, date, title, content, replies) {
         
         return `
-            <div id="comment-${id}" class="thread card my-4 mr-4 shadow-sm">
+            <div id="comment-${id}" class="thread card my-4 mr-4 shadow-sm" >
                 <div class="card-body">
                     <div>
-                        <h5 class="title card-title">${title}</h5>
+                        <h5 class="title card-title" style="color:#4e6c50!important;">${title}</h5>
                         <div class="meta-thread card-subtitle d-flex justify-content-between">
                             <h6 class="mb-2 text-muted">Ditulis oleh: ${username}</h6>
                             <h6 class="mb-2 text-muted">${date}</h6>

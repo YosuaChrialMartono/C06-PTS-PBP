@@ -12,7 +12,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import json
 from django.conf import settings
-User = settings.AUTH_USER_MODEL
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 def show_forum(request):
     '''

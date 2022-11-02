@@ -55,24 +55,39 @@
         text-transform: capitalize;
         font-weight: bold;
     }
+
+    #user {
+        list-style-type: none;
+        padding: 10px;
+        font-family: 'Montserrat', sans-serif;
+        color: #F0EBCE;
+        font-size: 14px;
+        text-decoration: none;
+        text-transform: none!important;
+        font-weight: bold;
+    }
 </style>
 
 <nav class="wrapper">
     <div class="wrapper2">
-        <ul class="navigasi"><li><a href="">Pacil Tau Stunting</a></li></ul>
+        <ul class="navigasi"><li><a href="{% url 'login:landing_page' %}">Pacil Tau Stunting</a></li></ul>
         <ul class="navigasi">
-            <li><a href="">FAQ</a></li>
-            <li><a href="">Saran</a></li>
-            <li><a href="">Artikel</a></li>
-            <li><a href="">Tracker</a></li>
-            <li><a href="">Forum Bertanya</a></li>
+            <li><a href="{% url 'login:landing_page' %}">Beranda</a></li>
+            <li><a href="{% url 'faqs:show_faq' %}">FAQ</a></li>
+            <li><a href="{% url 'article:show_main_page' %}">Artikel</a></li>
+            <li><a href="{% url 'tracking:show_index' %}">Tracker</a></li>
+            <li><a href="{% url 'forum:show_forum' %}">Forum Bertanya</a></li>
             <li><a href="{% url 'wallofhope:show_wallofhope' %}">Wall Of Hope</a></li>
         </ul>
         <ul class="navigasi2">
-            {{ user }}
-            <li><a href="{% url 'login:signup' %}">signup</a></li>
-            <li><a href="{% url 'login:login_page' %}">login</a></li>
-            <li><a href="{% url 'login:logout' %}">logout</a></li>
+            
+            {% if request.user.is_authenticated %}
+                <li ><a id="user">{{user}}</a></li>
+                <li><a href="{% url 'login:logout' %}">logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login:login_page' %}">login</a></li>
+            {% endif %}
+            <!-- <li><a href="{% url 'login:signup' %}">signup</a></li> -->
         </ul>
     </div>
 </nav>
