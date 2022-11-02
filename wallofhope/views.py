@@ -4,12 +4,9 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.http import HttpResponse
 from django.core import serializers
 from .forms import DataForm
-from django.contrib.auth import authenticate, login, logout
-from django.urls import reverse
 from django.shortcuts import redirect
 import datetime 
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 User = settings.AUTH_USER_MODEL
@@ -26,6 +23,17 @@ def show_wallofhope(request):
 def show_json(request):
     data = wallofhope.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+
+
+def show_wallofhope_base(request):
+    data_user = wallofhope.objects.all()
+    form = DataForm 
+    context = {
+        'wallofhope_data': data_user,
+        'form' : form
+    }
+    return render(request, "wallofhope.html", context)
 
 
 @login_required(login_url='/login/')

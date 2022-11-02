@@ -8,14 +8,22 @@
 
 {% block content %}
 
+{% include 'navbar.html' %}
 
-  <br>
-  <br>
-  <br>
-  <h1 style = "color:black;"> Wall Of Hope </h1>
+<br>
+<br>
+  <h1 style = "color: #f0ebce;"> Wall Of Hope </h1>
 
   {% comment %} Add the data below this line {% endcomment %}
+  
+  <div class = "button1">
+  <a class="btn btn-primary"href="{% url 'wallofhope:petunjuk' %}">Petunjuk Upload</a>
+  <a class="btn btn-primary" href="https://github.com/kkoep/C06-PTS-PBP/issues" target="_blank">Buat Link Image</a>
+  <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style = "color: white">Buat Wall Of Hope</a></li>
+  </div>
+
   <div id ="data"> </div>
+
   
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
