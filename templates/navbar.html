@@ -55,6 +55,17 @@
         text-transform: capitalize;
         font-weight: bold;
     }
+
+    .halo {
+        font-family: 'Montserrat', sans-serif;
+        color: #F0EBCE;
+        font-size: 14px;
+        text-decoration: none;
+        text-transform: capitalize;
+        font-weight: bold;
+        padding-top:12px;
+        padding-left:2px;
+    }
 </style>
 
 <nav class="wrapper">
@@ -64,15 +75,18 @@
             <li><a href="">FAQ</a></li>
             <li><a href="">Saran</a></li>
             <li><a href="">Artikel</a></li>
-            <li><a href="">Tracker</a></li>
+            <li><a href="">Tracking</a></li>
             <li><a href="">Forum Bertanya</a></li>
             <li><a href="">Wall Of Hope</a></li>
         </ul>
         <ul class="navigasi2">
-            {{ user }}
-            <li><a href="{% url 'login:signup' %}">signup</a></li>
-            <li><a href="{% url 'login:login_page' %}">login</a></li>
-            <li><a href="{% url 'login:logout' %}">logout</a></li>
+            {% if user.is_anonymous %}
+                <li><a href="{% url 'login:signup' %}">signup</a></li>
+                <li><a href="{% url 'login:login_page' %}">login</a></li>
+            {% else %}
+                <div class="halo">Hey, {{user}} !!</div>
+                <li><a href="{% url 'login:logout' %}">logout</a></li>
+            {% endif %}
         </ul>
     </div>
 </nav>
