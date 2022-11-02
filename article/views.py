@@ -24,6 +24,11 @@ def show_main_page(request):
     page_num = int(page_num)
     p = Paginator(articles, 12)
     page_range = p.page_range
+    
+    if request.user.username == '':
+        role = "PENGUNJUNG"
+    else:
+        role = request.user.role
 
     try:
         page = p.page(page_num)
@@ -36,7 +41,8 @@ def show_main_page(request):
         last_page = i
     context = {
         'page_num' : page_num,
-        'page_range' : last_page
+        'page_range' : last_page,
+        'role' : role,
     }
     return render(request, "main_page.html", context)
 
