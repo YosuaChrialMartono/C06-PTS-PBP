@@ -12,9 +12,6 @@ function next_page(){
     return window.location.href = myurl
 }
 
-function show_post_article() {
-    
-}
 
 async function getArticle(page_num) {
     return fetch(`json/${page_num}`).then((res) => res.json())
