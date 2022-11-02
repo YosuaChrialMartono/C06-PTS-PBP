@@ -8,7 +8,7 @@ User = settings.AUTH_USER_MODEL
 
 
 # Create your models here.
-class ArticlePage(models.Model):
+class ArticlesPage(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.date.today)
     title = models.CharField(max_length=255, help_text=("Required. Must be unique."), primary_key =True, error_messages={"unique":"Article with this Title already exists."})
@@ -16,6 +16,6 @@ class ArticlePage(models.Model):
 
 class ArticleForm(ModelForm):
     class Meta:
-        model = ArticlePage
+        model = ArticlesPage
         fields = ['title', 'content']
         help_text = {'content': 'Write content here'}

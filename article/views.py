@@ -13,13 +13,13 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 
-from article.models import ArticleForm, ArticlePage
+from article.models import ArticleForm, ArticlesPage
 
 def show_main_page(request):
     '''
     Show artikel tanpa login
     '''
-    articles = ArticlePage.objects.all()
+    articles = ArticlesPage.objects.all()
     page_num = request.GET.get('page', 1)
     page_num = int(page_num)
     p = Paginator(articles, 12)
@@ -53,7 +53,7 @@ def show_article_by_page(request, id):
     # Membuat id menjadi title yang dapat difilter
     id = id.replace("-", " ")
 
-    article = ArticlePage.objects.filter(title = id)
+    article = ArticlesPage.objects.filter(title = id)
     context = {
         'article' : article,
         'title' : id,
@@ -62,13 +62,13 @@ def show_article_by_page(request, id):
 
 
 def show_json(request):
-    articles = ArticlePage.objects.all()
+    articles = ArticlesPage.objects.all()
 
     return HttpResponse(serializers.serialize("json", articles), content_type="application/json")
 
 
 def show_json_by_page(request, page_num = 1):
-    articles = ArticlePage.objects.all()
+    articles = ArticlesPage.objects.all()
 
     p = Paginator(articles, 12)
     page = p.page(page_num)
