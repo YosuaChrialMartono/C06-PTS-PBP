@@ -36,9 +36,9 @@ def show_main_page(request):
         page_num = 1
     
     except OperationalError:
-        page_range = 1
-        page_num = 1
-        last_page = 1
+        page_range = 0
+        page_num = 0
+        last_page = 0
     if request.user.username == '':
             role = "PENGUNJUNG"
     else:
