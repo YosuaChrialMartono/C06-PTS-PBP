@@ -78,7 +78,7 @@ def login_user(request):
         else:
             messages.info(request, 'Username atau Password salah!')
     context = {}
-    return render(request, 'login.html', context)
+    return render(request, 'login_wallofhope.html', context)
 
 
 def logout_user(request):
@@ -98,7 +98,7 @@ def register(request):
             return redirect('wallofhope:login')
 
     context = {'form': form}
-    return render(request, 'register.html', context)
+    return render(request, 'register_wallofhope.html', context)
 
 
 # @login_required(login_url='/wallofhope/login/')

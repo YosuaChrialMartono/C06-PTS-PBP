@@ -1,5 +1,5 @@
 from django.urls import path
-from wallofhope.views import login_user, logout_user
+from wallofhope.views import login_user, logout_user, register
 from wallofhope.views import show_wallofhope
 from wallofhope.views import show_json
 from wallofhope.views import add_form_ajax
@@ -17,6 +17,7 @@ urlpatterns = [
     path('delete/<int:id>', delete_card, name='delete_card'),
     path('login/', login_user, name='login_user'),
     path('logout/', logout_user, name='logout_user'),
+    path('register/', register, name='register'),
 
     # path('a', show_wallofhope_guest, name= 'show_wallofhope_guest')
 
