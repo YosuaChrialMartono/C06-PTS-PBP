@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'wallofhope',
     'forum',
+    'tracking'
 ]
 
 MIDDLEWARE = [
