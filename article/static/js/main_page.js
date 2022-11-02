@@ -1,22 +1,3 @@
-/*$('#todolistform').on('submit', function (e) {
-
-    $.ajax({
-        method: 'POST',
-        url: $('#todolistform').data('url'),
-        data: {
-            titlevalue: $('#tasktitle').val(),
-            descriptionvalue: $('#description').val(),
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-        },
-        success: function () {
-
-        },
-    });
-    $("#createTaskModal").modal('hide');
-    refreshTodolist();
-    return false
-});
-*/
 function prev_page() {
     let current_page = document.getElementById("page").innerHTML.trim()
     let prev_page = parseInt(current_page) - 1
@@ -30,7 +11,6 @@ function next_page(){
     let myurl = `?page=${next_page}`
     return window.location.href = myurl
 }
-
 
 
 async function getArticle(page_num) {

@@ -21,7 +21,7 @@
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-            <a href="{% url 'forum:login_user' %}">
+            <a href="{% url 'login:login_page' %}">
                 <button type="button" class="btn btn-primary">Login</button>
             </a>
             </div>
@@ -29,8 +29,8 @@
     </div>
 </div>
 <div class="w-75" style="max-width: 75%;">
-    <h3>Forum Diskusi</h3>
-    <a href="{% url 'forum:show_forum' %}"> < Kembali</a>
+    <h3 style="color: #F0EBCE;">Forum Diskusi</h3>
+    <a href="{% url 'forum:show_forum' %}" style="color: #F0EBCE;"> < Kembali</a>
     
     <div id="thread-container"></div>
 </div>
@@ -119,7 +119,7 @@
                         <div class="meta-thread card-subtitle d-flex justify-content-between">
                             <div>
                                 <h6 class="mb-2 ">Ditulis oleh: <span id="ditulis-oleh-${id}">${username}</span></h6>
-                                <h6 class="mb-2 ">Membalas <a href="#comment-${parent}">${parentName}</a></h6>
+                                <h6 class="mb-2 text-muted">Membalas <a href="#comment-${parent}" class="text-muted">${parentName}</a></h6>
                             </div>
                             <h6 class="mb-2 text-muted">${date}</h6>
                         </div>
@@ -202,7 +202,7 @@
                 <div class="thread card my-4 mr-4 shadow-sm">
                     <div class="card-body">
                         <div>
-                            <h5 class="title card-title">${title}</h5>
+                            <h5 class="title card-title" style="color:#4e6c50!important;">${title}</h5>
                             <div class="meta-thread card-subtitle d-flex justify-content-between">
                                 <h6 class="mb-2 text-muted">Ditulis oleh: <span id="ditulis-oleh-${id}">${username}</span></h6>
                                 <h6 class="mb-2 text-muted">${date}</h6>
@@ -232,7 +232,7 @@
                     </div>
                 </div>
                 <hr>
-                <h5>Komentar</h5>
+                <h5 style="color: #F0EBCE;">Komentar</h5>
             </div>
             
         `
