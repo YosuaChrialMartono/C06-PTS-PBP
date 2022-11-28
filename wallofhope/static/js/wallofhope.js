@@ -12,8 +12,8 @@ function show(){
               <div class="card-desc">${value.fields.deskripsi}</div>
               <br>
             </div>
-            <a class="btn login_btn bg-primary text-white" style="color:blue;" href="delete/${value.pk}">Delete</a>
           </div>`
+          
           
       $('#data').append(kartu)
   })

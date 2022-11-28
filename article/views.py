@@ -12,31 +12,41 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+from django.db.utils import OperationalError
 
-from article.models import ArticleForm, ArticlePage
+
+from article.models import ArticleForm, ArticlesPage
 
 def show_main_page(request):
     '''
     Show artikel tanpa login
     '''
-    articles = ArticlePage.objects.all()
+    articles = ArticlesPage.objects.all()
     page_num = request.GET.get('page', 1)
-    page_num = int(page_num)
     p = Paginator(articles, 12)
-    page_range = p.page_range
 
     try:
+        page_range = p.page_range
+        page_num = int(page_num)
         page = p.page(page_num)
+        last_page = 0
+        for i in page_range:
+            last_page = i
     except EmptyPage:
         page_num = 1
-
-
-    last_page = 0
-    for i in page_range:
-        last_page = i
+    
+    except OperationalError:
+        page_range = 0
+        page_num = 0
+        last_page = 0
+    if request.user.username == '':
+            role = "PENGUNJUNG"
+    else:
+            role = request.user.role
     context = {
         'page_num' : page_num,
-        'page_range' : last_page
+        'page_range' : last_page,
+        'role' : role,
     }
     return render(request, "main_page.html", context)
 
@@ -47,7 +57,7 @@ def show_article_by_page(request, id):
     # Membuat id menjadi title yang dapat difilter
     id = id.replace("-", " ")
 
-    article = ArticlePage.objects.filter(title = id)
+    article = ArticlesPage.objects.filter(title = id)
     context = {
         'article' : article,
         'title' : id,
@@ -56,13 +66,13 @@ def show_article_by_page(request, id):
 
 
 def show_json(request):
-    articles = ArticlePage.objects.all()
+    articles = ArticlesPage.objects.all()
 
     return HttpResponse(serializers.serialize("json", articles), content_type="application/json")
 
 
 def show_json_by_page(request, page_num = 1):
-    articles = ArticlePage.objects.all()
+    articles = ArticlesPage.objects.all()
 
     p = Paginator(articles, 12)
     page = p.page(page_num)

@@ -17,11 +17,77 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/styles.css" rel="stylesheet" />
+<style>.wrapper {
+    width: 100vw;
+}
+
+.wrapper2 {
+    padding-top:15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #7c7068;
+    justify-content: space-between;
+    height: 50px;
+}
+
+.navigasi {
+    padding-left: 5px;
+    display: flex;
+    justify-content: left;
+}
+
+.navigasi2 {
+    padding-right: 5px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.navigasi > li {
+    list-style-type: none;
+    padding: 10px;
+}
+
+.navigasi2 > li {
+    list-style-type: none;
+    padding: 10px;
+}
+
+.navigasi > li > a {
+    font-family: 'Montserrat', sans-serif;
+    color: #F0EBCE;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.navigasi2 > li > a {
+    font-family: 'Montserrat', sans-serif;
+    color: #F0EBCE;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.halo {
+    font-family: 'Montserrat', sans-serif;
+    color: #F0EBCE;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-weight: bold;
+    padding-top:12px;
+    padding-left:2px;
+}</style>
 {% endblock meta %}
 
 {% block content %}
 <body id="page-top">
   <!-- Navigation-->
+  {% comment %}
   <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
       <div class="container px-4 px-lg-5">
           <a class="navbar-brand" href="#page-top">PacilTauStunting</a>
@@ -36,6 +102,30 @@
           </div>
       </div>
   </nav>
+  {% endcomment %}
+
+  <nav class="wrapper">
+    <div class="wrapper2">
+        <ul class="navigasi"><li><a href="{% url 'login:landing_page'%}">Pacil Tau Stunting</a></li></ul>
+        <ul class="navigasi">
+            <li><a href="{% url 'login:landing_page' %}">Beranda</a></li>
+            <li><a href="{% url 'faqs:show_faq' %}">FAQ</a></li>
+            <li><a href="{% url 'article:show_main_page' %}">Artikel</a></li>
+            <li><a href="{% url 'tracking:show_index' %}">Tracker</a></li>
+            <li><a href="{% url 'forum:show_forum' %}">Forum Bertanya</a></li>
+            <li><a href="{% url 'wallofhope:show_wallofhope' %}">Wall Of Hope</a></li>
+        </ul>
+        <ul class="navigasi2">
+            {% if user.is_anonymous %}
+                <li><a href="{% url 'login:signup' %}">signup</a></li>
+                <li><a href="{% url 'login:login_page' %}">login</a></li>
+            {% else %}
+                <div class="halo">Hey, {{user}} !!</div>
+                <li><a href="{% url 'login:logout' %}">logout</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
   <!-- Masthead-->
   <header class="masthead">
       <div class="container px-4 px-lg-5 h-100">

@@ -30,7 +30,7 @@ def login_page(request):
 			print(user)
 			if user:
 				login(request, user)
-				return redirect('/login')
+				return redirect('/')
 				
 	else:
 		form = UserAuthenticationForm()
