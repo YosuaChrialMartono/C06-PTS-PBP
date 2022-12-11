@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'wallofhope',
     'forum',
     'tracking',
-    'authentication'
+    'authentication',
     'corsheaders',
 ]
 
