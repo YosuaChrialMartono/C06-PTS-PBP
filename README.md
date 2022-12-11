@@ -13,6 +13,10 @@
 https://pts-c06-pbp.herokuapp.com/
 <br><br>
 
+## Tautan Aplikasi Railway🔗
+https://pts-c06-pbp.up.railway.app
+<br><br>
+
 ## Brief👨‍⚕👩‍⚕️
 Salah satu isu yang menjadi prioritas dalam pertemuan G20 adalah _global health architecture_. Namun, belakangan ini yang selalu mendapatkan sorotan adalah pandemi COVID19. Padahal, masih terdapat banyak masalah kesehatan lainnya yang masih perlu diperbaiki di Indonesia. Salah satunya adalah _stunting_.
 
