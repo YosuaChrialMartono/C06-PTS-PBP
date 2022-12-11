@@ -27,4 +27,5 @@ urlpatterns = [
     path('article/', include('article.urls')),
     path('forum/', include('forum.urls')),
     path('wallofhope/', include('wallofhope.urls')),
+    path('auth/', include('authentication.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_URL)
