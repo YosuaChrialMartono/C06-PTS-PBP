@@ -12,13 +12,13 @@ def login(request):
     user = authenticate(email=email, password=password)
     if user is not None:
         if user.is_active:
-            auth_login(request, user)
+            login(request, user)
             # Redirect to a success page.
             return JsonResponse({
               "status": True,
               "message": "Successfully Logged In!",
-              "user": user,
-              "email": email,
+              "username": request.user.username,
+              "role": request.user.role,
               # Insert any extra data if you want to pass data to Flutter
             }, status=200)
         else:
