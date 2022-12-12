@@ -69,3 +69,7 @@ def show_user_json(request):
   user = User.objects.all()
 
   return HttpResponse(serializers.serialize("json", user),content_type="application/json")
+
+def show_user_json_id(request,id):
+  user = User.objects.filter(pk=id)
+  return HttpResponse(serializers.serialize("json", user),content_type="application/json")
