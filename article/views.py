@@ -11,6 +11,9 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
 
 from django.db.utils import OperationalError
 
@@ -130,6 +133,24 @@ def post_article(request):
     response = {'form': form}
     return render(request, 'form_article.html', response)
 
+@csrf_exempt
+def post_article_flutter(request):
+    if (request.method == 'POST'):
+        form = ArticleForm(request.POST or None)
+        if form.is_valid():
+            article_form = form.save(commit=False)
+            article_form.author = request.user
+            article_form.save()
+            return JsonResponse({
+              "status": True,
+              "message": "Berhasil post artikel",
+              # Insert any extra data if you want to pass data to Flutter
+            }, status=200)
+    return JsonResponse({
+              "status": False,
+              "message": form.errors,
+              # Insert any extra data if you want to pass data to Flutter
+            }, status=401)
 
 def save_article(request):
     form = ArticleForm(request.POST or None)

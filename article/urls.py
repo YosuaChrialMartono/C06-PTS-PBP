@@ -1,11 +1,12 @@
 from django.urls import path
-from article.views import show_article_by_page, show_main_page, show_json, show_json_by_page, register, login, logout, post_article
+from article.views import show_article_by_page, show_main_page, show_json, show_json_by_page, register, login, logout, post_article, post_article_flutter
 
 app_name = 'article'
 
 urlpatterns = [
     path('', show_main_page, name='show_main_page'),
     path('post-article/', post_article, name='post_article'),
+    path('post-article-flutter/', post_article_flutter, name='post_article_flutter'),
     path('articles/<str:id>/', show_article_by_page, name='show_article_by_page'),
     path('json/', show_json, name='show_json'),
     path('json/<int:page_num>', show_json_by_page, name='show_json_by_page'),
