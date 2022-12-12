@@ -15,14 +15,9 @@ def post_tracker(request):
         trackingForm = TrackingForm(request.POST or None)
         if form.is_valid():
             trackingForm.save(commit=False)
-            return JsonResponse({
-                "status": True,
-                "message": "Data posted."
-            }, status = 200)
-    return JsonResponse({
-        "status": False,
-        "message": form.errors,
-    }, status = 401)
+            return True
+    return False
+    
 def show_index(request):
     form = TrackingForm
     if request.method == "POST":
