@@ -134,7 +134,7 @@ def post_article(request):
     return render(request, 'form_article.html', response)
 
 @csrf_exempt
-def post_article(request):
+def post_article_flutter(request):
     if (request.method == 'POST'):
         form = ArticleForm(request.POST or None)
         if form.is_valid():
