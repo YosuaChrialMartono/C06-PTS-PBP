@@ -139,7 +139,7 @@ def post_article_flutter(request):
         form = ArticleForm(request.POST or None)
         if form.is_valid():
             article_form = form.save(commit=False)
-            article_form.author = request.user
+            article_form.author = request.user.username
             article_form.save()
             return JsonResponse({
               "status": True,
