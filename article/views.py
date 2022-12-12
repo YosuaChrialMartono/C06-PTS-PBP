@@ -143,7 +143,7 @@ def post_article_flutter(request):
             article_form.save()
             return JsonResponse({
               "status": True,
-              "message": "Berhasil mendaftar",
+              "message": "Berhasil post artikel",
               # Insert any extra data if you want to pass data to Flutter
             }, status=200)
     return JsonResponse({
