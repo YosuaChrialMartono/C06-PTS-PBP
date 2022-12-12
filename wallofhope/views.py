@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from wallofhope.models import wallofhope
+from wallofhope.forms import wallofhope
 from django.http import HttpResponseRedirect, JsonResponse
 from django.http import HttpResponse
 from django.core import serializers
@@ -69,5 +70,25 @@ def petunjuk(request):
         'form' : form
     }
     return render(request, "petunjuk.html", context)
+
+
+@csrf_exempt
+def post_wallofhope_flutter(request):
+    if (request.method == 'POST'):
+        form = DataForm(request.POST or None)
+        if form.is_valid():
+            wallofhope_form = form.save(commit=False)
+            wallofhope_form.fields.user = request.user.username
+            wallofhope_form.save()
+            return JsonResponse({
+              "status": True,
+              "message": "Berhasil post wall of hope",
+              # Insert any extra data if you want to pass data to Flutter
+            }, status=200)
+    return JsonResponse({
+              "status": False,
+              "message": form.errors,
+              # Insert any extra data if you want to pass data to Flutter
+            }, status=401)
 
 
