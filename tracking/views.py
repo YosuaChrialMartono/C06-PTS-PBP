@@ -4,9 +4,25 @@ from .models import Data
 from .forms import TrackingForm
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
+@csrf_exempt
+def post_tracker(request):
+    form = TrackingForm
+    if (request.method == "POST"):
+        trackingForm = TrackingForm(request.POST or None)
+        if form.is_valid():
+            trackingForm.save(commit=False)
+            return JsonResponse({
+                "status": True,
+                "message": "Data posted."
+            }, status = 200)
+    return JsonResponse({
+        "status": False,
+        "message": form.errors,
+    }, status = 401)
 def show_index(request):
     form = TrackingForm
     if request.method == "POST":
