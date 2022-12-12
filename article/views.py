@@ -127,7 +127,7 @@ def post_article(request):
     form = ArticleForm(request.POST or None)
     if (form.is_valid() and request.method == 'POST'):
         article_form = form.save(commit=False)
-        article_form.author = request.user
+        article_form.fields.author = request.user
         article_form.save()
         return redirect('/article/')
     response = {'form': form}
@@ -139,7 +139,7 @@ def post_article_flutter(request):
         form = ArticleForm(request.POST or None)
         if form.is_valid():
             article_form = form.save(commit=False)
-            article_form.author = request.user.username
+            article_form.fields.author = request.user.username
             article_form.save()
             return JsonResponse({
               "status": True,
