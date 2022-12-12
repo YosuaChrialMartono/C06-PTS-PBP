@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from faq_recommendations.models import FreqAskedQuestions
 from django.core import serializers
 from faq_recommendations.models import Experiences
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -18,6 +19,7 @@ def show_json(request):
     data = FreqAskedQuestions.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+@csrf_exempt
 def add_exp(request):
     form = ExpForm(request.POST)
     if(request.method == 'POST'):
@@ -32,4 +34,9 @@ def add_exp(request):
             'email' : email,
             'nomorHP' : nomorHP,
             'message' : message,
-        })
+        }, status = 200)
+    return JsonResponse({
+      "status": False,
+      "message": form.errors,
+      # Insert any extra data if you want to pass data to Flutter
+    }, status=401)
