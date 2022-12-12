@@ -7,6 +7,9 @@ from django.contrib.auth import logout
 from login.forms import RegistrationForm, UserAuthenticationForm
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from login.models import User
+from django.http import HttpResponse
+from django.core import serializers
 
 @csrf_exempt
 def login(request):
@@ -61,3 +64,8 @@ def logout(request):
             "status": True,
             "message": "Successfully Logged Out!"
             }, status=200)
+
+def show_user_json(request):
+  user = User.objects.all()
+
+  return HttpResponse(serializers.serialize("json", user),content_type="application/json")
