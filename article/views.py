@@ -148,7 +148,7 @@ def post_article_flutter(request):
             }, status=200)
     return JsonResponse({
               "status": False,
-              "message": form.errors,
+              "message": "Gagal Post artikel",
               # Insert any extra data if you want to pass data to Flutter
             }, status=401)
 
